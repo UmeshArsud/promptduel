@@ -1,0 +1,12 @@
+.git/
+.gitignore
+.idea/
+.vscode/
+
+target/
+logs/
+*.log
+
+# Keep mvnw and .mvn directory
+!.mvn/
+!mvnw
