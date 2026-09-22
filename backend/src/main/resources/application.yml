@@ -1,0 +1,46 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/promptduel?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:promptduel-dev-secret-key-that-is-at-least-256-bits-long-for-hs256}
+    expiration-ms: ${JWT_EXPIRATION:86400000}
+  cors:
+    allowed-origin: ${CORS_ORIGIN:http://localhost:5173}
+  llm:
+    api-key: ${GEMINI_API_KEY:}
+    model: ${GEMINI_MODEL:gemini-2.5-flash}
+    base-url: ${GEMINI_BASE_URL:https://generativelanguage.googleapis.com/v1beta}
+    use-judge-scoring: ${USE_JUDGE_SCORING:true}
+    thread-pool-size: ${LLM_THREAD_POOL_SIZE:5}
+    timeout-seconds: ${LLM_TIMEOUT_SECONDS:60}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
